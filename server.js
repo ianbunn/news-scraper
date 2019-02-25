@@ -3,10 +3,16 @@ const express = require("express")
 const mongojs = require("mongojs")
 const axios = require("axios")
 const cheerio = require("cheerio")
+const expressHandlebars = require("express-handlebars")
 
 // INITIALIZE EXPRESS
 const app = express()
 const PORT = 3000
+
+// SETUP A STATIC FOLDER (PUBLIC) FOR APP
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+app.use(express.static("public"))
 
 // DATABASE CONFIGURATION
 const databaseUrl = "mongoScraper"
@@ -18,9 +24,13 @@ db.on("error", (error)=> {
     console.log("Database Error:", error)
 })
 
+// HANDLEBARS
+app.engine("handlebars", expressHandlebars({ defaultLayout: "main" }))
+app.set("view engine", "handlebars")
+
 // MAIN ROUTE TO APP
 app.get("/", (request, response)=> {
-    response.send("hola mundo")
+    response.render("index")
 })
 
 app.listen(3000, ()=> {

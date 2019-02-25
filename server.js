@@ -29,10 +29,10 @@ app.engine("handlebars", expressHandlebars({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")
 
 // MAIN ROUTE TO APP
-app.get("/", (request, response)=> {
-    response.render("index")
-})
+require("./routes/htmlRoutes")(app)
+require("./routes/apiRoutes")(app)
 
+// USING PORT TO RUN APP
 app.listen(3000, ()=> {
     console.log("App running on http://localhost:" + PORT)
 })

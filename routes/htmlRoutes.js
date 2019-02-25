@@ -1,6 +1,6 @@
 module.exports = function(app) {
     // INDEX PAGE
-    app.get("/", (request, response)=> {
+    app.get("/", function(request, response) {
         response.render("index")
     })
 

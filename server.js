@@ -6,13 +6,13 @@ const cheerio = require("cheerio")
 const expressHandlebars = require("express-handlebars")
 
 // INITIALIZE EXPRESS
-const app = express()
-const PORT = 3000
+var app = express()
+const PORT = process.env.PORT || 3000
 
 // SETUP A STATIC FOLDER (PUBLIC) FOR APP
+app.use(express.static("public"))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(express.static("public"))
 
 // DATABASE CONFIGURATION
 const databaseUrl = "mongoScraper"
@@ -24,9 +24,13 @@ db.on("error", (error)=> {
     console.log("Database Error:", error)
 })
 
-// HANDLEBARS
-app.engine("handlebars", expressHandlebars({ defaultLayout: "main" }))
-app.set("view engine", "handlebars")
+app.engine(
+    "handlebars",
+    expressHandlebars({
+        defaultLayout: "main"
+    })
+);
+app.set("view engine", "handlebars");
 
 // MAIN ROUTE TO APP
 require("./routes/htmlRoutes")(app)

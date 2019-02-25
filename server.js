@@ -20,7 +20,7 @@ db.on("error", (error)=> {
 
 // MAIN ROUTE TO APP
 app.get("/", (request, response)=> {
-    response.send("hello world")
+    response.send("hola mundo")
 })
 
 app.listen(3000, ()=> {

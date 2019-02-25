@@ -1,0 +1,34 @@
+{
+  "name": "news-scraper",
+  "version": "1.0.0",
+  "description": "news scraper description",
+  "main": "index.js",
+  "scripts": {
+    "test": "test command input"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianbunn/news-scraper.git"
+  },
+  "keywords": [
+    "scraper",
+    "news",
+    "express",
+    "mongoose",
+    "cheerio",
+    "axios"
+  ],
+  "author": "irb__",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ianbunn/news-scraper/issues"
+  },
+  "homepage": "https://github.com/ianbunn/news-scraper#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "mongoose": "^5.4.15"
+  }
+}

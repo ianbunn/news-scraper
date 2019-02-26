@@ -1,29 +1,30 @@
 // DEPENDENCIES
 const express = require("express")
 const mongojs = require("mongojs")
+const mongoose = require("mongoose")
 const axios = require("axios")
 const cheerio = require("cheerio")
 const expressHandlebars = require("express-handlebars")
+const logger = require("morgan")
 
 // INITIALIZE EXPRESS
 var app = express()
 const PORT = process.env.PORT || 3000
 
+// REQUIRE ALL MODELS
+const db = require("./models")
+
+// LOG ACTIVITY USING MORGAN
+app.use(logger("dev"))
 // SETUP A STATIC FOLDER (PUBLIC) FOR APP
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-// DATABASE CONFIGURATION
-const databaseUrl = "mongoScraper"
-const collections = ["mongoScrapedData"]
+// CONNECT TO MONGODB
+mongoose.connect("mongodb://localhost/scrapeddata", { useNewUrlParser: true });
 
-// HOOK MONGOJS CONFIGURATION TO THE DB VARIABLE
-const db = mongojs(databaseUrl, collections)
-db.on("error", (error)=> {
-    console.log("Database Error:", error)
-})
-
+// SETTING HANDLEBARS AS TEMPLATE ENGINE
 app.engine(
     "handlebars",
     expressHandlebars({
@@ -32,7 +33,7 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-// MAIN ROUTE TO APP
+// ROUTES TO APP
 require("./routes/htmlRoutes")(app)
 require("./routes/apiRoutes")(app)
 

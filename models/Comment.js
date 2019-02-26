@@ -17,7 +17,11 @@ const CommentSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: "Article"
         }
-    ]
+    ],
+    timestamp: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 const Comment = mongoose.model("Comment", CommentSchema)

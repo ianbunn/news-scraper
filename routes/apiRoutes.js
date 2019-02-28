@@ -9,7 +9,7 @@ const db = require("../models")
 module.exports = function(router) {
     
     // GET ARTICLES FROM NEWS SITE AFTER USER CLICKS ON SCRAPE BUTTON
-    router.get("/scrapearticles", (request, response)=> {
+    router.get("/scrapearticles", (req, res)=> {
 
         // AXIOS GET NEWS FROM URL
         axios.get("https://theconversation.com/us/technology").then(function (response) {
@@ -24,7 +24,7 @@ module.exports = function(router) {
                 let articleDetails = {}
                 
                     // FIND ARTICLE'S TITLE
-                    articleDetails.title = $(element).find("a").text().trim()
+                    articleDetails.title = $(element).find("a").first().text().trim()
                     articleDetails.title = articleDetails.title.replace(/\r?\n|\r/g, "")
                     
                     // FIND ARTICLE'S SUMMARY
@@ -38,16 +38,18 @@ module.exports = function(router) {
                     // EDIT TO MAKE URL VALID
                     articleDetails.link = `https://theconversation.com${articleDetails.link}`
 
-                    db.Article.create(articleDetails).then(function(dbArticles) {
-                        response.json(dbArticles)
-                    }).catch(function(error) {
-                        return error
-                    })
+                    if(articleDetails.title && articleDetails.link) {
+                        db.Article.create(articleDetails).then(function(dbArticles) {
+                            response.json(dbArticles)
+                        }).catch(function(error) {
+                            return error
+                        })
+                    }
             })
         })
 
         // SEND A "SCRAPE COMPLETE" MESSAGE TO THE BROWSER
-        response.send("Scrape Complete")
+        res.location("/")
     })
 
 }

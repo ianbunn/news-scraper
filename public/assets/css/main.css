@@ -1,0 +1,23 @@
+#scrape {
+    margin-bottom: 15px;
+}
+
+.articleContainer {
+    border: 3px solid darkslategray;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    float: left;
+    position: relative;
+    height: auto;
+    padding: 20px;
+    text-align: left;
+    width: 100%;
+}
+.articleContainer a:link, a:visited {
+    color: blue;
+    text-decoration: none;
+}
+
+.articleContainer a:hover {
+    color: green;
+}

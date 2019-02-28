@@ -52,4 +52,26 @@ module.exports = function(router) {
         res.send("Scrape complete!")
     })
 
+    // SAVE COMMENT
+    router.post("/postcomment", (req, res)=> {
+        db.Comment.create(req.body).then((dbComent)=> {
+            return db.Article.findOneAndUpdate({}, {$push: { comments: dbComment._id } }, { new: true})
+        })
+        .then(function(dbArticle) {
+            res.json(dbArticle)
+        })
+        .catch(function(error) {
+            res.json(error)
+        })
+    })
+
+    // GET COMMENTS IN ARTICLES AFTER USER CLICKS ON COMMENTS BUTTON
+    // router.post("/", (req, res)=> {
+    //     db.Articles.find({}).populate("comments").then(function(dbArticle) {
+    //         res.json(dbArticle)
+    //     })
+    //     .catch(function(err) {
+    //         res.json(err)
+    //     })
+    // })
 }

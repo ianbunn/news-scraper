@@ -11,7 +11,12 @@ module.exports = function(app) {
     })
 
     // SAVED ARTICLES PAGE
-    app.get("/savedarticles", (request, response)=> {
-        response.render("savedArticles")
-    })
+    // app.get("/comments", (request, response)=> {
+    //     response.send("comments")
+    // })
+
+    // SAVED ARTICLES PAGE
+    // app.get("/savedarticles", (request, response)=> {
+    //     response.render("savedArticles")
+    // })
 }

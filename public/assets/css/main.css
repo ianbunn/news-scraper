@@ -1,5 +1,5 @@
 body {
-    background-color: grey;
+    background-color: rgba(155, 234, 226, 0.619);
 }
 
 .header {
@@ -35,8 +35,11 @@ body {
 }
 
 .articleContainer:hover {
-    color: green;
     border: 3px solid hotpink;
+}
+
+.article:hover {
+    color: darkslategrey;
 }
 
 .title {
@@ -53,7 +56,7 @@ body {
     /* right: 0; */
     right: 0;
     bottom: 0;
-    height: 40%;
+    height: 100%;
     width: 20%;
     opacity: 0;
     transition: .3s ease;
@@ -86,4 +89,8 @@ body {
 .fa-comments:hover {
     color: #fff;
     border: 2px solid #fff;
+}
+
+.postComment {
+    margin: 10px 0 10px 0;
 }

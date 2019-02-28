@@ -4,16 +4,20 @@
     <button id="scrape">Scrape</button>
 
     {{#each result}}
-        <a href="{{this.link}}" target="_blank">
-            <div class="articleContainer">
+        <div class="articleContainer">
+            <a href="{{this.link}}" target="_blank" class="article" data-id="{{this._id}}">
                 <h1 class="title">{{this.title}}</h1>
                 <p><span class="summary">{{this.summary}}</span></p>
-                <div class="overlay">
-                    <a href="" class="icon" title="Add comment">
-                        <i class="fa fa-comments"></i>
-                    </a>
-                </div>
-            </div>
-        </a>
+            </a>
+            {{!-- <div class="overlay">
+                <a href="/comments" class="icon" title="Add comment">
+                    <i class="fa fa-comments"></i>
+                </a>
+            </div> --}}
+            <form action="/postcomment" class="postComment">
+                <textarea name="comment" id="comment"></textarea>
+                <button id="submit">Comment</button>
+            </form>
+        </div>
     {{/each}}
 </div>

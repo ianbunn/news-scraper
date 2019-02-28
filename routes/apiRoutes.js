@@ -49,7 +49,7 @@ module.exports = function(router) {
         })
 
         // SEND A "SCRAPE COMPLETE" MESSAGE TO THE BROWSER
-        res.location("/")
+        res.send("Scrape complete!")
     })
 
 }

@@ -1,7 +1,16 @@
+body {
+    background-color: grey;
+}
+
 .header {
     font-family: 'Notable', sans-serif;
     text-align: center;
     color: hotpink;
+    font-size: 72px;
+    letter-spacing: 2px;
+    /* background: -webkit-linear-gradient(hotpink, rgb(72, 17, 26));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
 }
 
 #scrape {
@@ -36,4 +45,45 @@
 
 .summary {
     font-family: 'Raleway', sans-serif;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    /* right: 0; */
+    right: 0;
+    bottom: 0;
+    height: 40%;
+    width: 20%;
+    opacity: 0;
+    transition: .3s ease;
+    background-color: rgba(0,0,0,0.3);
+    /* border:1px solid #ccc; */
+}
+
+.articleContainer:hover .overlay {
+    opacity: 1;
+}
+
+.icon {
+    color: #ccc;
+    position: absolute;
+    top: 50%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.fa-comments {
+    font-size:18px;
+    border: 2px solid #ccc;
+    border-radius:50%;
+    padding:10px;
+    background-color:#333;
+}
+
+.fa-comments:hover {
+    color: #fff;
+    border: 2px solid #fff;
 }

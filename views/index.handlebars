@@ -1,11 +1,19 @@
-<h1 class="header">Science & Tech Nerd News</h1>
+<div class="container">
+    <h1 class="header">STEM Nerd News</h1>
 
-<button id="scrape">Scrape</button>
+    <button id="scrape">Scrape</button>
 
     {{#each result}}
-<a href="{{this.link}}" target="_blank"><div class="articleContainer">
-        <h1 class="title">{{this.title}}</h1>
-        <p><span class="summary">{{this.summary}}</span></p>
-</div>
-</a>
+        <a href="{{this.link}}" target="_blank">
+            <div class="articleContainer">
+                <h1 class="title">{{this.title}}</h1>
+                <p><span class="summary">{{this.summary}}</span></p>
+                <div class="overlay">
+                    <a href="" class="icon" title="Add comment">
+                        <i class="fa fa-comments"></i>
+                    </a>
+                </div>
+            </div>
+        </a>
     {{/each}}
+</div>

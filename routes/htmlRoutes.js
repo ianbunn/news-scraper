@@ -3,7 +3,7 @@ const db = require("../models")
 module.exports = function(app) {
     // INDEX PAGE
     app.get("/", function(request, response) {
-        db.Article.find().then(function(dbArticle) {
+        db.Article.find().sort({timestamp: -1}).then(function(dbArticle) {
             response.render("index", { result: dbArticle})
         }).catch(function(error) {
             response.json(error)

@@ -1,14 +1,15 @@
 // DEPENDENCIES
 const express = require("express")
+const router = express.Router()
 const mongojs = require("mongojs")
 const axios = require("axios")
 const cheerio = require("cheerio")
 const db = require("../models")
 
-module.exports = function(app) {
+module.exports = function(router) {
     
     // GET ARTICLES FROM NEWS SITE AFTER USER CLICKS ON SCRAPE BUTTON
-    app.get("/scrapearticles", (request, response)=> {
+    router.get("/scrapearticles", (request, response)=> {
 
         // AXIOS GET NEWS FROM URL
         axios.get("https://theconversation.com/us/technology").then(function (response) {
@@ -22,27 +23,37 @@ module.exports = function(app) {
                 // OBJECT TO SAVE INTO MONGODB
                 let articleDetails = {}
                 
-                // FIND ARTICLE'S TITLE
-                articleDetails.title = $(".article--header").children("h2").text().trim()
-                articleDetails.title = articleDetails.title.replace(/\r?\n|\r/g, "")
+                    // FIND ARTICLE'S TITLE
+                    articleDetails.title = $(".article--header").find("h2").text().trim()
+                    articleDetails.title = articleDetails.title.replace(/\r?\n|\r/g, "")
+                    console.log(articleDetails.title)
 
-                // FIND ARTICLE'S SUMMARY
-                articleDetails.summary = $(".content").children("span").text().trim()
-                articleDetails.summary = articleDetails.summary.replace(/\r?\n|\r/g, "")
+                    // FIND ARTICLE'S SUMMARY
+                    // articleDetails.summary = $(".content").children("span").text().trim()
+                    // articleDetails.summary = articleDetails.summary.replace(/\r?\n|\r/g, "")
 
-                // FIND LINK AND GET HREF ATTR FOR URL
-                articleDetails.link = $(element).find("a").attr("href").trim()
-                articleDetails.link = articleDetails.link.replace(/\r?\n|\r/g, " ")
-                
-                // EDIT TO MAKE URL VALID
-                articleDetails.link = `https://theconversation.com${articleDetails.link}`
+                    // FIND LINK AND GET HREF ATTR FOR URL
+                    articleDetails.link = $(element).find("a").attr("href").trim()
+                    articleDetails.link = articleDetails.link.replace(/\r?\n|\r/g, " ")
+                    
+                    // EDIT TO MAKE URL VALID
+                    articleDetails.link = `https://theconversation.com${articleDetails.link}`
 
-                // SAVE RESULTS INTO MONGODB
-                db.Article.create(articleDetails).then((savedArticles)=> {
-                    console.log(savedArticles)
-                }).catch((error)=> {
-                    console.log(error)
-                })
+                // If this found element had both a title and a link
+                // if (articleDetails.title && articleDetails.link) {
+                //     // Insert the data in the scrapedData db
+                //     db.Article.create({articleDetails},
+                //         function (err, inserted) {
+                //             if (err) {
+                //                 // Log the error if one is encountered during the query
+                //                 console.log(err);
+                //             }
+                //             else {
+                //                 // Otherwise, log the inserted data
+                //                 console.log(inserted);
+                //             }
+                //         });
+                // }
             })
         })
 

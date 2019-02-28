@@ -24,14 +24,13 @@ module.exports = function(router) {
                 let articleDetails = {}
                 
                     // FIND ARTICLE'S TITLE
-                    articleDetails.title = $(".article--header").find("h2").text().trim()
+                    articleDetails.title = $(element).find("a").text().trim()
                     articleDetails.title = articleDetails.title.replace(/\r?\n|\r/g, "")
-                    console.log(articleDetails.title)
-
+                    
                     // FIND ARTICLE'S SUMMARY
-                    // articleDetails.summary = $(".content").children("span").text().trim()
-                    // articleDetails.summary = articleDetails.summary.replace(/\r?\n|\r/g, "")
-
+                    articleDetails.summary = $(element).children(".content").text().trim()
+                    articleDetails.summary = articleDetails.summary.replace(/\r?\n|\r/g, "")
+                    
                     // FIND LINK AND GET HREF ATTR FOR URL
                     articleDetails.link = $(element).find("a").attr("href").trim()
                     articleDetails.link = articleDetails.link.replace(/\r?\n|\r/g, " ")
@@ -39,30 +38,16 @@ module.exports = function(router) {
                     // EDIT TO MAKE URL VALID
                     articleDetails.link = `https://theconversation.com${articleDetails.link}`
 
-                // If this found element had both a title and a link
-                // if (articleDetails.title && articleDetails.link) {
-                //     // Insert the data in the scrapedData db
-                //     db.Article.create({articleDetails},
-                //         function (err, inserted) {
-                //             if (err) {
-                //                 // Log the error if one is encountered during the query
-                //                 console.log(err);
-                //             }
-                //             else {
-                //                 // Otherwise, log the inserted data
-                //                 console.log(inserted);
-                //             }
-                //         });
-                // }
+                    db.Article.create(articleDetails).then(function(dbArticles) {
+                        response.json(dbArticles)
+                    }).catch(function(error) {
+                        return error
+                    })
             })
         })
 
         // SEND A "SCRAPE COMPLETE" MESSAGE TO THE BROWSER
         response.send("Scrape Complete")
     })
-
-    // PENDING: SAVE ARTICLE FROM NEWS SITE INTO mongoScraper/mongoScrapedData AFTER USER CLICKS ON SAVE ARTICLE BUTTON
-
-    // PENDING: GET SAVED ARTICLES FROM mongoScraper/savedArticles
 
 }

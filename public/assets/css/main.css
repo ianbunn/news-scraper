@@ -1,11 +1,17 @@
+/* $color1: rgba(36, 123, 160, 1);
+$color2: rgba(112, 193, 179, 1);
+$color3: rgba(178, 219, 191, 1);
+$color4: rgba(243, 255, 189, 1);
+$color5: rgba(255, 22, 84, 1); */
+
 body {
-    background-color: rgba(155, 234, 226, 0.619);
+    background-color: rgb(241, 250, 200);
 }
 
 .header {
     font-family: 'Notable', sans-serif;
     text-align: center;
-    color: hotpink;
+    color: #FF1654;
     font-size: 72px;
     letter-spacing: 2px;
     /* background: -webkit-linear-gradient(hotpink, rgb(72, 17, 26));
@@ -13,12 +19,26 @@ body {
     -webkit-text-fill-color: transparent; */
 }
 
-#scrape {
+.buttonHolder {
     margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+button {
+    background: #3498db;
+    width: 50%;
+    padding: 4px 0;
+    border-radius: 3px;
+}
+button:hover {
+    background: blue;
+    color: white;
 }
 
 .articleContainer {
-    border: 3px solid darkslategray;
+    border: 3px solid #70C1B3;
     margin-bottom: 20px;
     box-sizing: border-box;
     float: left;
@@ -30,16 +50,16 @@ body {
 }
 
 .articleContainer a:link, a:visited {
-    color: blue;
+    color: #518268;
     text-decoration: none;
 }
 
 .articleContainer:hover {
-    border: 3px solid hotpink;
+    border: 3px solid #FF1654;
 }
 
 .article:hover a {
-    color: yellowgreen;
+    color: #FF1654;
 }
 
 .title {

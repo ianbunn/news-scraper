@@ -6,6 +6,7 @@ $("#scrape").on("click", (articles)=> {
         data: JSON.stringify(articles)
     }).then((data)=> {
         console.log("Scrape Complete")
+        location.reload()
     })
 })
 

@@ -37,6 +37,6 @@ app.set("view engine", "handlebars");
 require("./controller/routes")(app)
 
 // USING PORT TO RUN APP
-app.listen(3000, ()=> {
+app.listen(PORT, ()=> {
     console.log("App running on http://localhost:" + PORT)
 })

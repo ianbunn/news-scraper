@@ -34,8 +34,7 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // ROUTES TO APP
-require("./routes/htmlRoutes")(app)
-require("./routes/apiRoutes")(app)
+require("./controller/routes")(app)
 
 // USING PORT TO RUN APP
 app.listen(3000, ()=> {

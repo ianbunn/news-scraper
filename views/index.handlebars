@@ -5,19 +5,27 @@
 
     {{#each result}}
         <div class="articleContainer">
-            <a href="{{this.link}}" target="_blank" class="article" data-id="{{this._id}}">
-                <h1 class="title">{{this.title}}</h1>
-                <p><span class="summary">{{this.summary}}</span></p>
-            </a>
-            {{!-- <div class="overlay">
-                <a href="/comments" class="icon" title="Add comment">
-                    <i class="fa fa-comments"></i>
+            <div class="article">
+                <a href="{{this.link}}" target="_blank" class="article">
+                    <h1 class="title">{{this.title}}</h1>
+                    <p><span class="summary">{{this.summary}}</span></p>
                 </a>
-            </div> --}}
-            <form action="/postcomment" class="postComment">
-                <textarea name="comment" id="comment"></textarea>
-                <button id="submit">Comment</button>
+            </div>
+            <form action="/postcomment" method="post">
+                <textarea type="text" name="body" placeholder="Write Note Here"></textarea>
+                <input class="savecomment" type="submit" data-id="{{this._id}}">
             </form>
+
+            <div id="commentsSection">
+                <h1 class="title">Comments</h1>
+                {{#each this.comments.comment}}
+                    <p>
+                        <span class="commentBody">{{body}}</span><span class="commentTimestamp">{{timestamp}}</span>
+                        <a class="deletecomment" data-comment="{{_id}}" data-article="{{../this.id}}"><i class="fa fa-trash"></i></a>
+                    </p>
+                {{/each}}
+            </div>
+
         </div>
     {{/each}}
 </div>

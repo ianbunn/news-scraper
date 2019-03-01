@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const CommentSchema = new Schema({
-    comment: {
+    body: {
         type: String,
         validate: [
             (text)=> {
@@ -12,12 +12,6 @@ const CommentSchema = new Schema({
             "EMPTY COMMENT ERROR: Please enter a valid comment"
         ]
     },
-    articles: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Article"
-        }
-    ],
     timestamp: {
         type: Date,
         default: Date.now

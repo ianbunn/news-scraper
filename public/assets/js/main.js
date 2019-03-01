@@ -9,8 +9,48 @@ $("#scrape").on("click", (articles)=> {
     })
 })
 
-$("#submit").on("click", ()=> {
+$(".commentsSection").on("click", (articles)=> {
     event.preventDefault()
-    let articleId = $(this).find(".article").attr("data-id")
+    return $.ajax({
+        type: "GET",
+        url: "/getcomments",
+        data: JSON.stringify(articles)
+    }).then((data)=> {
+        location.reload()
+    })
+})
+
+// SAVE COMMENT
+$(".savecomment").on("click", function(event) {
+    event.preventDefault()
+    let articleId = $(this).attr("data-id")
+    let comment = $(this).prev().val()
+    console.log(articleId, comment)
+    return $.ajax({
+        method: "POST",
+        url: "/articles/" + articleId,
+        data: {
+            body: comment
+        }
+    }).then(function (data) {
+        console.log(data)
+        location.reload()
+    })
+})
+
+$(".deletecomment").on("click", function (event) {
+    event.preventDefault()
+    let commentId = $(this).attr("data-comment")
+    let articleId = $(this).attr("data-article")
+    console.log("delete")
+    console.log(commentId)
     console.log(articleId)
+
+    $.ajax({
+        method: "GET",
+        url: "/comments/" + commentId + "/" + articleId
+    }).then(function (data) {
+        console.log(data)
+        location.reload()
+    })
 })

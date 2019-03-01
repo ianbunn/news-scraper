@@ -7,6 +7,19 @@ const cheerio = require("cheerio")
 const db = require("../models")
 
 module.exports = function(router) {
+
+    // INDEX PAGE
+    router.get("/", function (request, response) {
+        db.Article.find()
+            .sort({ time: -1 })
+            .populate("comments.comment")
+            .then(function (dbArticle) {
+                response.render("index", { result: dbArticle });
+            })
+            .catch(function (err) {
+                response.json(err);
+            });
+    });
     
     // GET ARTICLES FROM NEWS SITE AFTER USER CLICKS ON SCRAPE BUTTON
     router.get("/scrapearticles", (req, res)=> {
@@ -53,25 +66,37 @@ module.exports = function(router) {
     })
 
     // SAVE COMMENT
-    router.post("/postcomment", (req, res)=> {
-        db.Comment.create(req.body).then((dbComent)=> {
-            return db.Article.findOneAndUpdate({}, {$push: { comments: dbComment._id } }, { new: true})
-        })
-        .then(function(dbArticle) {
-            res.json(dbArticle)
-        })
-        .catch(function(error) {
-            res.json(error)
-        })
-    })
+    router.post("/articles/:id", (req, res)=> {
+        db.Comment.create(req.body)
+            .then(function (dbComment) {
+                return db.Article.findOneAndUpdate(
+                    { _id: req.params.id },
+                    { $push: { comments: { comment: dbComment._id } } },
+                    { new: true }
+                );
+            })
+            .then(function (dbArticle) {
+                console.log(dbArticle);
+                res.json(dbArticle);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
+    });
 
-    // GET COMMENTS IN ARTICLES AFTER USER CLICKS ON COMMENTS BUTTON
-    // router.post("/", (req, res)=> {
-    //     db.Articles.find({}).populate("comments").then(function(dbArticle) {
-    //         res.json(dbArticle)
-    //     })
-    //     .catch(function(err) {
-    //         res.json(err)
-    //     })
-    // })
+    // DELETE COMMENT
+    router.get("/comments/:commentid/:articleid", function (req, res) {
+        console.log(req.body);
+        db.Article.findOneAndUpdate(
+            { _id: req.params.articleid },
+            { $pull: { comments: { comment: req.params.commentid } } 
+        })
+            .then(function (data) {
+                console.log(data);
+                res.json(data);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
+    });
 }

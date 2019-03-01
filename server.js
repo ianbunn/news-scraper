@@ -22,7 +22,11 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // CONNECT TO MONGODB
-mongoose.connect("mongodb://localhost/scrapeddata", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/scrapeddata", { useNewUrlParser: true });
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapeddata"
+
+mongoose.connect(MONGODB_URI);
 
 // SETTING HANDLEBARS AS TEMPLATE ENGINE
 app.engine(

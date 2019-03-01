@@ -4,6 +4,7 @@
   "description": "news scraper description",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "test command input"
   },
   "repository": {

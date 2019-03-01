@@ -38,6 +38,10 @@ body {
     border: 3px solid hotpink;
 }
 
+.article:hover a {
+    color: yellowgreen;
+}
+
 .title {
     font-family: 'ZCOOL QingKe HuangYou', cursive;
 }

@@ -14,12 +14,12 @@ module.exports = function(router) {
             .sort({ time: -1 })
             .populate("comments.comment")
             .then(function (dbArticle) {
-                response.render("index", { result: dbArticle });
+                response.render("index", { result: dbArticle })
             })
             .catch(function (err) {
-                response.json(err);
-            });
-    });
+                response.json(err)
+            })
+    })
     
     // GET ARTICLES FROM NEWS SITE AFTER USER CLICKS ON SCRAPE BUTTON
     router.get("/scrapearticles", (req, res)=> {
@@ -73,30 +73,30 @@ module.exports = function(router) {
                     { _id: req.params.id },
                     { $push: { comments: { comment: dbComment._id } } },
                     { new: true }
-                );
+                )
             })
             .then(function (dbArticle) {
-                console.log(dbArticle);
-                res.json(dbArticle);
+                console.log(dbArticle)
+                res.json(dbArticle)
             })
             .catch(function (err) {
-                res.json(err);
-            });
-    });
+                res.json(err)
+            })
+    })
 
     // DELETE COMMENT
     router.get("/comments/:commentid/:articleid", function (req, res) {
-        console.log(req.body);
+        console.log(req.body)
         db.Article.findOneAndUpdate(
             { _id: req.params.articleid },
             { $pull: { comments: { comment: req.params.commentid } } 
         })
             .then(function (data) {
-                console.log(data);
-                res.json(data);
+                console.log(data)
+                res.json(data)
             })
             .catch(function (err) {
-                res.json(err);
-            });
-    });
+                res.json(err)
+            })
+    })
 }

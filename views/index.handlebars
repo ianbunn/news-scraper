@@ -19,9 +19,9 @@
             <div id="commentsSection">
                 <h1 class="title">Comments</h1>
                 {{#each this.comments.comment}}
-                    <p>
-                        <span class="commentBody">{{body}}</span><span class="commentTimestamp">{{timestamp}}</span>
-                        <a class="deletecomment" data-comment="{{_id}}" data-article="{{../this.id}}"><i class="fa fa-trash"></i></a>
+                    <p class="comment">
+                        <a class="deletecomment" data-comment="{{_id}}" data-article="{{../this.id}}"><span class="commentBody">{{body}}</span><span class="commentTimestamp">{{timestamp}}</span>
+                        <i class="fa fa-trash"></i></a>
                     </p>
                 {{/each}}
             </div>

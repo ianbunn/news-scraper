@@ -11,7 +11,7 @@ module.exports = function(router) {
     // INDEX PAGE
     router.get("/", function (request, response) {
         db.Article.find()
-            .sort({ time: -1 })
+            .sort({ timestamp: -1 })
             .populate("comments.comment")
             .then(function (dbArticle) {
                 response.render("index", { result: dbArticle })
